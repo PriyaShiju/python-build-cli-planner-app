@@ -1,7 +1,7 @@
 from abc import ABC, ABCMeta, abstractmethod
 from collections.abc import Iterable
 from dateutil.parser import parse
-from datetime import date
+from datetime import date,datetime
 
 
 class DeadlinedMetaReminder(Iterable,metaclass=ABCMeta):
