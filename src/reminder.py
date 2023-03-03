@@ -13,7 +13,7 @@ class PrefixedReminder:
 class PoliteReminder(PrefixedReminder,Iterable):
     def __init__(self, text, date = None):                
         super().__init__(prefix = "Please ")
-        self.text = self.prefix + text + "  , Due on : " + date
+        self.text = self.prefix + text   # "  , Due on : " + date
         
     def __iter__(self):
         return iter([self.text])

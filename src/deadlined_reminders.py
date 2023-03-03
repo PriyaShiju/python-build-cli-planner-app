@@ -1,18 +1,23 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from collections.abc import Iterable
 from dateutil.parser import parse
 from datetime import date
 
 
-class DeadlinedReminder(metaclass=ABCMeta):
+class DeadlinedMetaReminder(Iterable,metaclass=ABCMeta):
+    @abstractmethod
+    def is_due(self):
+        pass
+    
+        
+class DeadlinedReminder(ABC,Iterable):
+    @abstractmethod
+    def is_due(self):
+        pass
     
     @abstractmethod
     def __iter__(self):
         return self
-        
-    @abstractmethod
-    def is_due():
-        pass
     
     @classmethod
     def __subclasshook__(cls, subclass):
@@ -32,12 +37,10 @@ class DateReminder(DeadlinedReminder):
         self.text = text
         self.date = parse(date,dayfirst=True)
         
-    def is_due():
-        return not self.date<=datetime.now()
+    def is_due(self):
+        return self.date<=datetime.now()
     
     def __iter__(self):
-        formatted_date = self.date.isoformat()
-        text = self.text
-        return iter([text, formatted_date])
+        return iter([self.text, self.date.isoformat()])
     
  
